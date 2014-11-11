@@ -90,7 +90,7 @@ impl<'a> dot::GraphWalk<'a, Nd, Ed> for Edges {
     fn target(&self, e: &Ed) -> Nd { let &(_,t) = e; t }
 }
 
-# pub fn main() { use std::io::MemWriter; render_to(&mut MemWriter::new()) }
+# pub fn main() { render_to(&mut Vec::new()) }
 ```
 
 ```no_run
@@ -182,7 +182,7 @@ impl<'a> dot::GraphWalk<'a, Nd, Ed<'a>> for Graph {
     fn target(&self, e: &Ed) -> Nd { let & &(_,t) = e; t }
 }
 
-# pub fn main() { use std::io::MemWriter; render_to(&mut MemWriter::new()) }
+# pub fn main() { render_to(&mut Vec::new()) }
 ```
 
 ```no_run
@@ -246,7 +246,7 @@ impl<'a> dot::GraphWalk<'a, Nd<'a>, Ed<'a>> for Graph {
     fn target(&self, e: &Ed<'a>) -> Nd<'a> { let &(_,t) = e; t }
 }
 
-# pub fn main() { use std::io::MemWriter; render_to(&mut MemWriter::new()) }
+# pub fn main() { render_to(&mut Vec::new()) }
 ```
 
 ```no_run
@@ -541,7 +541,7 @@ pub fn render<'a, N:'a, E:'a, G:Labeller<'a,N,E>+GraphWalk<'a,N,E>, W:Writer>(
 mod tests {
     use super::{Id, LabelText, LabelStr, EscStr, Labeller};
     use super::{Nodes, Edges, GraphWalk, render};
-    use std::io::{MemWriter, BufReader, IoResult};
+    use std::io::{BufReader, IoResult};
     use std::str;
 
     /// each node is an index in a vector in the graph.
@@ -690,7 +690,7 @@ mod tests {
     }
 
     fn test_input(g: LabelledGraph) -> IoResult<String> {
-        let mut writer = MemWriter::new();
+        let mut writer = Vec::new();
         render(&g, &mut writer).unwrap();
         let mut r = BufReader::new(writer.get_ref());
         r.read_to_string()
@@ -797,7 +797,7 @@ r#"digraph hasse_diagram {
             "branch2",
             "afterward"));
 
-        let mut writer = MemWriter::new();
+        let mut writer = Vec::new();
 
         let g = LabelledGraphWithEscStrs::new(
             "syntax_tree", labels,

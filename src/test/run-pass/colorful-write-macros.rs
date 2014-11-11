@@ -13,7 +13,6 @@
 #![allow(unused_must_use, dead_code)]
 #![feature(macro_rules)]
 
-use std::io::MemWriter;
 use std::fmt;
 use std::fmt::FormatWriter;
 
@@ -35,7 +34,7 @@ fn borrowing_writer_from_struct_and_formatting_struct_field(foo: Foo) {
 }
 
 fn main() {
-    let mut w = MemWriter::new();
+    let mut w = Vec::new();
     write!(&mut w as &mut Writer, "");
     write!(&mut w, ""); // should coerce
     println!("ok");

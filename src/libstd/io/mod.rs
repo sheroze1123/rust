@@ -1291,9 +1291,9 @@ impl<'a> Writer for &'a mut Writer+'a {
 /// # fn process_input<R: Reader>(r: R) {}
 /// # fn foo () {
 /// use std::io::util::TeeReader;
-/// use std::io::{stdin, MemWriter, ByRefWriter};
+/// use std::io::{stdin, ByRefWriter};
 ///
-/// let mut output = MemWriter::new();
+/// let mut output = Vec::new();
 ///
 /// {
 ///     // Don't give ownership of 'output' to the 'tee'. Instead we keep a
