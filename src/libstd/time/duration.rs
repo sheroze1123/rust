@@ -558,7 +558,7 @@ mod tests {
     #[test]
     fn span() {
         use io::timer::sleep;
-        let dur = Duration::span(|| sleep(Duration::milliseconds(5)));
+        let dur = Duration::span(|| sleep(Duration::milliseconds(20)));
         assert!(dur > Duration::milliseconds(1));
     }
 }
